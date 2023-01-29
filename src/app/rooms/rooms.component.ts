@@ -13,6 +13,7 @@ export class RoomsComponent implements OnInit {
   color = "color: green";
   texte = "font-weight: bold";
   hideRooms = false;
+  title!: string;
 
   rooms: Room = {
     totalRooms: 200,
@@ -20,7 +21,9 @@ export class RoomsComponent implements OnInit {
   }
   
   selectedRoom!: RoomList;  
+
   roomList: RoomList[] = [];
+  
   constructor() {};
 
   ngOnInit(): void {
@@ -57,10 +60,26 @@ export class RoomsComponent implements OnInit {
 
   toggle() {
     this.hideRooms = !this.hideRooms;
+    this.title = "Room List";
   }
 
   selectRoom(room: RoomList){
     this.selectedRoom = room;
+  }
+
+  addRoom(){
+    const room: RoomList = {
+      roomNumber: 52,
+      roomType: "Luxurious Room",
+      amenities: "Hot Water, TV, Free Wi-Fi",
+      price: 500,
+      photos: "",
+      checkInTime: new Date('11-Nov-2021'),
+      checkOutTime: new Date('14-Nov-2021'),
+    };
+
+    //this.roomList.push(room);
+    this.roomList = [...this.roomList, room];
   }
 
 }
