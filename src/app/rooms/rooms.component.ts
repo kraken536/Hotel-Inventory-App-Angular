@@ -6,6 +6,7 @@ import { Room, RoomList } from './rooms';
   templateUrl: './rooms.component.html',
   styleUrls: ['./rooms.component.scss']
 })
+
 export class RoomsComponent implements OnInit {
   hotelName = "Hilton Hotel";
   numberOfRooms = 10;
@@ -14,48 +15,52 @@ export class RoomsComponent implements OnInit {
   hideRooms = false;
 
   rooms: Room = {
+    totalRooms: 200,
     availableRooms: 17,
   }
-
-  roomList: RoomList[] = [
-    {
-      roomNumber: 1,
-      roomType: "Deluxe Room",
-      amenities: "Free Wi-Fi, TV, Bathroom, Kitchen",
-      price: 500,
-      photos: "",
-      checkInTime: new Date('11-Nov-2021'),
-      checkOutTime: new Date('12-Nov-2021'),
-    },
-    {
-      roomNumber: 2,
-      roomType: "Private Suit",
-      amenities: "Free Wi-Fi, TV, Bathroom, Kitchen",
-      price: 1000,
-      photos: "",
-      checkInTime: new Date('14-Nov-2021'),
-      checkOutTime: new Date('17-Nov-2021'),
-    },
-    {
-      roomNumber: 3,
-      roomType: "Luxurious Room",
-      amenities: "Free Wi-Fi, TV, Bathroom, Kitchen",
-      price: 5000,
-      photos: "",
-      checkInTime: new Date('14-Nov-2021'),
-      checkOutTime: new Date('17-Nov-2021'),
-    }
-  ];
-
-  constructor() {
-
-  };
+  
+  selectedRoom!: RoomList;  
+  roomList: RoomList[] = [];
+  constructor() {};
 
   ngOnInit(): void {
-
-  };
+    this.roomList = [
+      {
+        roomNumber: 1,
+        roomType: "Deluxe Room",
+        amenities: "Free Wi-Fi, TV, Bathroom, Kitchen",
+        price: 500,
+        photos: "",
+        checkInTime: new Date('11-Nov-2021'),
+        checkOutTime: new Date('12-Nov-2021'),
+      },
+      {
+        roomNumber: 2,
+        roomType: "Private Suit",
+        amenities: "Free Wi-Fi, TV, Bathroom, Kitchen",
+        price: 1000,
+        photos: "",
+        checkInTime: new Date('14-Nov-2021'),
+        checkOutTime: new Date('17-Nov-2021'),
+      },
+      {
+        roomNumber: 3,
+        roomType: "Luxurious Room",
+        amenities: "Free Wi-Fi, TV, Bathroom, Kitchen",
+        price: 5000,
+        photos: "",
+        checkInTime: new Date('14-Nov-2021'),
+        checkOutTime: new Date('17-Nov-2021'),
+      }
+    ];
+  }
 
   toggle() {
     this.hideRooms = !this.hideRooms;
   }
+
+  selectRoom(room: RoomList){
+    this.selectedRoom = room;
+  }
+
 }
