@@ -60,7 +60,7 @@ export class RoomsComponent implements OnInit {
 
   toggle() {
     this.hideRooms = !this.hideRooms;
-    this.title = "Room List";
+    this.title = "Rooms List";
   }
 
   selectRoom(room: RoomList){
