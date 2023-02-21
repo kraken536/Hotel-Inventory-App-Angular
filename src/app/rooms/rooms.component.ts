@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, DoCheck, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Room, RoomList } from './rooms';
 import { HeaderComponent } from '../header/header.component';
 
@@ -8,7 +8,7 @@ import { HeaderComponent } from '../header/header.component';
   styleUrls: ['./rooms.component.scss']
 })
 
-export class RoomsComponent implements OnInit, DoCheck {
+export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterViewChecked {
   hotelName = "Hilton Hotel";
   numberOfRooms = 10;
   color = "color: green";
@@ -25,8 +25,18 @@ export class RoomsComponent implements OnInit, DoCheck {
 
   roomList: RoomList[] = [];
   @ViewChild(HeaderComponent) headerComponent!: HeaderComponent;
+
+  @ViewChildren(HeaderComponent) headerComponents!: QueryList<HeaderComponent>;
   
   constructor() {}
+  ngAfterViewInit(): void {
+    this.headerComponent.title = "Rooms View";
+    console.log(this.headerComponents);
+  }
+
+  ngAfterViewChecked(){
+    
+  }
   
   ngDoCheck(): void {
     console.log("Do Check is called.");
