@@ -35,6 +35,7 @@ export class RoomsService {
       checkOutTime: new Date('17-Nov-2021'),
     }
   ];
+  
   constructor() { }
 
   getRooms(){
