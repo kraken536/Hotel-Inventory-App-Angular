@@ -1,6 +1,7 @@
 import { AfterViewChecked, AfterViewInit, Component, DoCheck, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Room, RoomList } from './rooms';
 import { HeaderComponent } from '../header/header.component';
+import { RoomsService } from './services/rooms.service';
 
 @Component({
   selector: 'app-rooms',
@@ -27,8 +28,10 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterView
   @ViewChild(HeaderComponent) headerComponent!: HeaderComponent;
 
   @ViewChildren(HeaderComponent) headerComponents!: QueryList<HeaderComponent>;
+
   
-  constructor() {}
+  
+  constructor(private roomsService: RoomsService) {}
   ngOnDestroy(): void {
     throw new Error('Method not implemented.');
   }
@@ -47,35 +50,7 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterView
 
   ngOnInit(): void {
     console.log(this.headerComponent);
-    this.roomList = [
-      {
-        roomNumber: 1,
-        roomType: "Deluxe Room",
-        amenities: "Free Wi-Fi, TV, Bathroom, Kitchen",
-        price: 500,
-        photos: "",
-        checkInTime: new Date('11-Nov-2021'),
-        checkOutTime: new Date('12-Nov-2021'),
-      },
-      {
-        roomNumber: 2,
-        roomType: "Private Suit",
-        amenities: "Free Wi-Fi, TV, Bathroom, Kitchen",
-        price: 1000,
-        photos: "",
-        checkInTime: new Date('14-Nov-2021'),
-        checkOutTime: new Date('17-Nov-2021'),
-      },
-      {
-        roomNumber: 3,
-        roomType: "Luxurious Room",
-        amenities: "Free Wi-Fi, TV, Bathroom, Kitchen",
-        price: 5000,
-        photos: "",
-        checkInTime: new Date('14-Nov-2021'),
-        checkOutTime: new Date('17-Nov-2021'),
-      }
-    ];
+    this.roomList = this.roomsService.getRooms();
   }
 
   toggle() {
