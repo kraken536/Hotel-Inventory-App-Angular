@@ -1,4 +1,4 @@
-import { AfterViewChecked, AfterViewInit, Component, DoCheck, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, DoCheck, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Room, RoomList } from './rooms';
 import { HeaderComponent } from '../header/header.component';
 
@@ -8,7 +8,7 @@ import { HeaderComponent } from '../header/header.component';
   styleUrls: ['./rooms.component.scss']
 })
 
-export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterViewChecked {
+export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterViewChecked, OnDestroy {
   hotelName = "Hilton Hotel";
   numberOfRooms = 10;
   color = "color: green";
@@ -29,6 +29,9 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterView
   @ViewChildren(HeaderComponent) headerComponents!: QueryList<HeaderComponent>;
   
   constructor() {}
+  ngOnDestroy(): void {
+    throw new Error('Method not implemented.');
+  }
   ngAfterViewInit(): void {
     this.headerComponent.title = "Rooms View";
     console.log(this.headerComponents);
@@ -98,7 +101,4 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterView
     //this.roomList.push(room);
     this.roomList = [...this.roomList, room];
   }
-
-
-
 }
