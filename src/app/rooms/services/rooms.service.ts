@@ -35,8 +35,10 @@ export class RoomsService {
       checkOutTime: new Date('17-Nov-2021'),
     }
   ];
-  
-  constructor() { }
+
+  constructor() { 
+    console.log("Rooms Service initialized...");
+  }
 
   getRooms(){
     return this.roomList;
