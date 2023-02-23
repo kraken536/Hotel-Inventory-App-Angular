@@ -12,11 +12,10 @@ export class ContainerComponent implements OnInit, AfterContentInit {
   
   @ContentChild(EmployeeComponent) employeeComponent!: EmployeeComponent;
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    
   }
   ngAfterContentInit(): void {
-    this.employeeComponent.empName = "Merhaba Brolar";
+    //this.employeeComponent.empName = "Merhaba Brolar";
   }
-
 
 }

@@ -1,4 +1,4 @@
-import { AfterViewChecked, AfterViewInit, Component, DoCheck, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, DoCheck, OnDestroy, OnInit, QueryList, SkipSelf, ViewChild, ViewChildren } from '@angular/core';
 import { Room, RoomList } from './rooms';
 import { HeaderComponent } from '../header/header.component';
 import { RoomsService } from './services/rooms.service';
@@ -31,12 +31,13 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterView
 
   
   
-  constructor(private roomsService: RoomsService) {}
+  constructor(@SkipSelf() private roomsService: RoomsService) {}
   ngOnDestroy(): void {
     throw new Error('Method not implemented.');
   }
   ngAfterViewInit(): void {
     this.headerComponent.title = "Rooms View";
+    this.headerComponents.last.title = "Last Last Last"
     console.log(this.headerComponents);
   }
 
