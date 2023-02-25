@@ -1,14 +1,14 @@
 import { Inject, Injectable } from '@angular/core';
 import { RoomList } from '../rooms';
-import { environment } from '../../../environments/environment';
 import { APP_SERVICE_CONFIG } from '../../AppConfig/appconfig.service';
 import { AppConfig } from '../../AppConfig/appconfig.interface';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoomsService {
-  
+  /* 
   roomList: RoomList[] = [
     {
       roomNumber: 1,
@@ -37,14 +37,16 @@ export class RoomsService {
       checkInTime: new Date('14-Nov-2021'),
       checkOutTime: new Date('17-Nov-2021'),
     }
-  ];
+  ]; */
 
-  constructor(@Inject(APP_SERVICE_CONFIG) private config: AppConfig) { 
+  roomList: RoomList[] = [];
+  constructor(@Inject(APP_SERVICE_CONFIG) private config: AppConfig,
+  private http: HttpClient) { 
     console.log("Rooms Service initialized...");
     console.log(this.config.apiEndpoint);
   }
 
   getRooms(){
-    return this.roomList;
+    return this.http.get<RoomList[]>('/api/show-all');
   }
 }

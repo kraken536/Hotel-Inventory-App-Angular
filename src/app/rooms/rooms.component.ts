@@ -2,6 +2,7 @@ import { AfterViewChecked, AfterViewInit, Component, DoCheck, OnDestroy, OnInit,
 import { Room, RoomList } from './rooms';
 import { HeaderComponent } from '../header/header.component';
 import { RoomsService } from './services/rooms.service';
+import { fromEvent, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-rooms',
@@ -23,7 +24,13 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterView
   }
   
   selectedRoom!: RoomList;  
-
+  stream = new Observable(observer => {
+    observer.next('user1'); //Stream Starts
+    observer.next('user2');
+    observer.next('user3');
+    observer.complete(); // Stream finishes
+    //observer.error("Error");
+  }) 
   roomList: RoomList[] = [];
   @ViewChild(HeaderComponent) headerComponent!: HeaderComponent;
 
@@ -42,7 +49,7 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterView
   }
 
   ngAfterViewChecked(){
-    
+    //fromEvent(document, 'Click').subscribe(() =>(console.log('RxJS usage')));
   }
   
   ngDoCheck(): void {
@@ -50,8 +57,15 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterView
   }
 
   ngOnInit(): void {
-    console.log(this.headerComponent);
-    this.roomList = this.roomsService.getRooms();
+    console.log(this.roomsService.getRooms().subscribe(rooms => {
+      this.roomList = rooms;
+    }) );
+    this.stream.subscribe(data => console.log(data));
+    this.stream.subscribe({
+      next: (value) => console.log(value),
+      complete: () => console.log('complete'),
+      error: (err) => console.log(err)
+    });
   }
 
   toggle() {
@@ -78,3 +92,9 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, AfterView
     this.roomList = [...this.roomList, room];
   }
 }
+
+
+/* 
+Push based: getData -> addData -> getData again
+Pull based: getData -> continuous stream of data -> addData,
+ */
